@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTA Modding Tools - VPZ</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CRLE1XCRHJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CRLE1XCRHJ');
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        * {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 140, 0, 0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .card-hover.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(255, 140, 0, 0.3);
+            border-color: rgba(255, 140, 0, 0.5);
+        }
+        .game-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+        .game-badge:hover {
+            transform: scale(1.05);
+            background-color: rgba(255, 140, 0, 0.2);
+        }
+        .screenshot-hover {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .screenshot-hover:hover {
+            transform: scale(1.02);
+        }
+        .btn-primary {
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 140, 0, 0.4);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        .btn-secondary {
+            transition: all 0.2s ease;
+        }
+        .btn-secondary:hover {
+            transform: translateY(-1px);
+            background-color: rgba(55, 65, 81, 1);
+        }
+        .hero-title {
+            animation: fadeInDown 1s ease-out;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .stats-card {
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.1) 0%, rgba(255, 140, 0, 0.05) 100%);
+            border: 1px solid rgba(255, 140, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        .stats-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 140, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 140, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Hero Section -->
+    <header class="gradient-bg border-b border-orange-500/20">
+        <div class="container mx-auto px-4 py-16 md:py-24">
+            <div class="text-center max-w-4xl mx-auto relative z-10">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent hero-title">
+                    GTA Modding Tools
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8">
+                    Professional tools for modding Grand Theft Auto games
+                </p>
+                <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+                    A collection of powerful, cross-platform applications for editing GTA game files including GXT text files, handling configurations, IMG archives, texture dictionaries, and Pak files.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Section -->
+    <section class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <div class="stats-card rounded-lg p-6 text-center">
+                <div class="text-4xl font-bold text-orange-400 mb-2">5</div>
+                <div class="text-sm text-gray-400">Modding Tools</div>
+            </div>
+            <div class="stats-card rounded-lg p-6 text-center">
+                <div class="text-4xl font-bold text-orange-400 mb-2">10+</div>
+                <div class="text-sm text-gray-400">Supported Games</div>
+            </div>
+            <div class="stats-card rounded-lg p-6 text-center">
+                <div class="text-4xl font-bold text-orange-400 mb-2">3</div>
+                <div class="text-sm text-gray-400">Platforms</div>
+            </div>
+            <div class="stats-card rounded-lg p-6 text-center">
+                <div class="text-4xl font-bold text-orange-400 mb-2">100%</div>
+                <div class="text-sm text-gray-400">Open Source</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Grid -->
+    <main class="container mx-auto px-4 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Gexter -->
+            <div class="bg-gray-800 rounded-lg border border-gray-700 card-hover overflow-hidden">
+                <div class="p-6">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="images/gexter.png" alt="Gexter" class="w-16 h-16 rounded-lg">
+                        <div>
+                            <h2 class="text-2xl font-bold text-orange-400">Gexter</h2>
+                            <p class="text-gray-400 text-sm">GXT File Editor</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        A powerful tool for viewing and editing GXT (game text) files from Grand Theft Auto games. Features a modern dark UI with full CRUD operations, advanced search, and export functionality.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gta3.png" alt="GTA III" class="w-4 h-4 inline">
+                            GTA III
+                        </span>
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gtavc.png" alt="GTA VC" class="w-4 h-4 inline">
+                            Vice City
+                        </span>
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gtasa.png" alt="GTA SA" class="w-4 h-4 inline">
+                            San Andreas
+                        </span>
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gtaiv.png" alt="GTA IV" class="w-4 h-4 inline">
+                            GTA IV
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <img src="images/windows.png" alt="Windows" class="w-5 h-5">
+                        <span class="text-sm text-gray-400">Windows</span>
+                    </div>
+                    <div class="mb-4">
+                        <img src="projects/gexter/screenshot.png" alt="Gexter Screenshot" class="w-full rounded screenshot-hover">
+                    </div>
+                    <ul class="text-sm text-gray-400 space-y-1 mb-4">
+                        <li>• Multi-game support (III, VC, SA, IV)</li>
+                        <li>• Full CRUD operations</li>
+                        <li>• Advanced search & filter</li>
+                        <li>• Export to CSV/JSON</li>
+                        <li>• Formatting code preservation</li>
+                    </ul>
+                    <div class="flex flex-col gap-2">
+                        <a href="https://github.com/vaibhavpandeyvpz/gexter/releases/latest" target="_blank" class="bg-orange-500 hover:bg-orange-600 text-white text-center py-2 px-4 rounded btn-primary">
+                            Download
+                        </a>
+                        <div class="flex gap-2">
+                            <a href="https://github.com/vaibhavpandeyvpz/gexter/issues" target="_blank" class="flex-1 bg-gray-700 text-white text-center py-2 px-4 rounded btn-secondary text-sm">
+                                Get Help
+                            </a>
+                            <a href="https://github.com/vaibhavpandeyvpz/gexter" target="_blank" class="flex-1 bg-gray-700 text-white text-center py-2 px-4 rounded btn-secondary text-sm">
+                                Source Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GTA Handler -->
+            <div class="bg-gray-800 rounded-lg border border-gray-700 card-hover overflow-hidden">
+                <div class="p-6">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="images/gtahandler.png" alt="GTA Handler" class="w-16 h-16 rounded-lg">
+                        <div>
+                            <h2 class="text-2xl font-bold text-orange-400">GTA Handler</h2>
+                            <p class="text-gray-400 text-sm">Handling.cfg Editor</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        A visual editor for handling.cfg files from the classic GTA trilogy and Definitive Edition. Edit vehicle handling properties with game-aware UI and real-time validation.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gta3.png" alt="GTA III" class="w-4 h-4 inline">
+                            GTA III
+                        </span>
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gta3de.png" alt="GTA III DE" class="w-4 h-4 inline">
+                            GTA III DE
+                        </span>
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gtavc.png" alt="GTA VC" class="w-4 h-4 inline">
+                            Vice City
+                        </span>
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gtavcde.png" alt="GTA VC DE" class="w-4 h-4 inline">
+                            VC DE
+                        </span>
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gtasa.png" alt="GTA SA" class="w-4 h-4 inline">
+                            San Andreas
+                        </span>
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gtasade.png" alt="GTA SA DE" class="w-4 h-4 inline">
+                            SA DE
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <img src="images/windows.png" alt="Windows" class="w-5 h-5">
+                        <span class="text-sm text-gray-400">Windows</span>
+                    </div>
+                    <div class="mb-4">
+                        <img src="projects/gtahandler/screenshot.png" alt="GTA Handler Screenshot" class="w-full rounded screenshot-hover">
+                    </div>
+                    <ul class="text-sm text-gray-400 space-y-1 mb-4">
+                        <li>• Multi-game support (Classic & DE)</li>
+                        <li>• Pak file support for DE</li>
+                        <li>• Full property editor</li>
+                        <li>• Game-aware UI</li>
+                        <li>• Copy/paste handling values</li>
+                    </ul>
+                    <div class="flex flex-col gap-2">
+                        <a href="https://github.com/vaibhavpandeyvpz/gtahandler/releases/latest" target="_blank" class="bg-orange-500 hover:bg-orange-600 text-white text-center py-2 px-4 rounded btn-primary">
+                            Download
+                        </a>
+                        <div class="flex gap-2">
+                            <a href="https://github.com/vaibhavpandeyvpz/gtahandler/issues" target="_blank" class="flex-1 bg-gray-700 text-white text-center py-2 px-4 rounded btn-secondary text-sm">
+                                Get Help
+                            </a>
+                            <a href="https://github.com/vaibhavpandeyvpz/gtahandler" target="_blank" class="flex-1 bg-gray-700 text-white text-center py-2 px-4 rounded btn-secondary text-sm">
+                                Source Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GTA IMG Tool -->
+            <div class="bg-gray-800 rounded-lg border border-gray-700 card-hover overflow-hidden">
+                <div class="p-6">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="images/gtaimg.png" alt="GTA IMG Tool" class="w-16 h-16 rounded-lg">
+                        <div>
+                            <h2 class="text-2xl font-bold text-orange-400">GTA IMG Tool</h2>
+                            <p class="text-gray-400 text-sm">IMG Archive Editor</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        A modern Windows application for viewing and editing IMG archive files from classic GTA games. Supports both VER1 (GTA III/VC) and VER2 (GTA SA) formats.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gta3.png" alt="GTA III" class="w-4 h-4 inline">
+                            GTA III
+                        </span>
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gtavc.png" alt="GTA VC" class="w-4 h-4 inline">
+                            Vice City
+                        </span>
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gtasa.png" alt="GTA SA" class="w-4 h-4 inline">
+                            San Andreas
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <img src="images/windows.png" alt="Windows" class="w-5 h-5">
+                        <span class="text-sm text-gray-400">Windows</span>
+                    </div>
+                    <div class="mb-4">
+                        <img src="projects/gtaimg/screenshot.png" alt="GTA IMG Tool Screenshot" class="w-full rounded screenshot-hover">
+                    </div>
+                    <ul class="text-sm text-gray-400 space-y-1 mb-4">
+                        <li>• VER1 & VER2 format support</li>
+                        <li>• Import/export files</li>
+                        <li>• Search & filter</li>
+                        <li>• Archive packing</li>
+                        <li>• Drag & drop support</li>
+                    </ul>
+                    <div class="flex flex-col gap-2">
+                        <a href="https://github.com/vaibhavpandeyvpz/gtaimg/releases/latest" target="_blank" class="bg-orange-500 hover:bg-orange-600 text-white text-center py-2 px-4 rounded btn-primary">
+                            Download
+                        </a>
+                        <div class="flex gap-2">
+                            <a href="https://github.com/vaibhavpandeyvpz/gtaimg/issues" target="_blank" class="flex-1 bg-gray-700 text-white text-center py-2 px-4 rounded btn-secondary text-sm">
+                                Get Help
+                            </a>
+                            <a href="https://github.com/vaibhavpandeyvpz/gtaimg" target="_blank" class="flex-1 bg-gray-700 text-white text-center py-2 px-4 rounded btn-secondary text-sm">
+                                Source Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TXD Edit -->
+            <div class="bg-gray-800 rounded-lg border border-gray-700 card-hover overflow-hidden">
+                <div class="p-6">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="images/txdedit.png" alt="TXD Edit" class="w-16 h-16 rounded-lg">
+                        <div>
+                            <h2 class="text-2xl font-bold text-orange-400">TXD Edit</h2>
+                            <p class="text-gray-400 text-sm">Texture Dictionary Editor</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        A modern, cross-platform desktop application for viewing and editing TXD (Texture Dictionary) files from GTA games. Features high-quality texture preview and comprehensive editing capabilities.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gta3.png" alt="GTA III" class="w-4 h-4 inline">
+                            GTA III
+                        </span>
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gtavc.png" alt="GTA VC" class="w-4 h-4 inline">
+                            Vice City
+                        </span>
+                        <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                            <img src="images/gtasa.png" alt="GTA SA" class="w-4 h-4 inline">
+                            San Andreas
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="images/windows.png" alt="Windows" class="w-5 h-5">
+                        <img src="images/mac.png" alt="macOS" class="w-5 h-5">
+                        <img src="images/linux.png" alt="Linux" class="w-5 h-5">
+                        <span class="text-sm text-gray-400">Cross-platform</span>
+                    </div>
+                    <div class="mb-4">
+                        <img src="projects/txdedit/screenshot.png" alt="TXD Edit Screenshot" class="w-full rounded screenshot-hover">
+                    </div>
+                    <ul class="text-sm text-gray-400 space-y-1 mb-4">
+                        <li>• Cross-platform (Windows, macOS, Linux)</li>
+                        <li>• High-quality texture preview</li>
+                        <li>• DXT compression support</li>
+                        <li>• Import/export textures</li>
+                        <li>• Bulk export functionality</li>
+                    </ul>
+                    <div class="flex flex-col gap-2">
+                        <a href="https://github.com/vaibhavpandeyvpz/txdedit/releases/latest" target="_blank" class="bg-orange-500 hover:bg-orange-600 text-white text-center py-2 px-4 rounded btn-primary">
+                            Download
+                        </a>
+                        <div class="flex gap-2">
+                            <a href="https://github.com/vaibhavpandeyvpz/txdedit/issues" target="_blank" class="flex-1 bg-gray-700 text-white text-center py-2 px-4 rounded btn-secondary text-sm">
+                                Get Help
+                            </a>
+                            <a href="https://github.com/vaibhavpandeyvpz/txdedit" target="_blank" class="flex-1 bg-gray-700 text-white text-center py-2 px-4 rounded btn-secondary text-sm">
+                                Source Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unpaker -->
+            <div class="bg-gray-800 rounded-lg border border-gray-700 card-hover overflow-hidden md:col-span-2">
+                <div class="p-6">
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="images/unpaker.png" alt="Unpaker" class="w-16 h-16 rounded-lg">
+                        <div>
+                            <h2 class="text-2xl font-bold text-orange-400">Unpaker</h2>
+                            <p class="text-gray-400 text-sm">Pak Archive Tool</p>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-gray-300 mb-4">
+                                A comprehensive C# library and desktop application for reading and writing Unreal Engine 4 Pak archive files, compatible with GTA Definitive Edition games.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                                    <img src="images/gta3de.png" alt="GTA III DE" class="w-4 h-4 inline">
+                                    GTA III DE
+                                </span>
+                                <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                                    <img src="images/gtavcde.png" alt="GTA VC DE" class="w-4 h-4 inline">
+                                    VC DE
+                                </span>
+                                <span class="game-badge px-2 py-1 bg-gray-700 rounded text-xs">
+                                    <img src="images/gtasade.png" alt="GTA SA DE" class="w-4 h-4 inline">
+                                    SA DE
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-2 mb-4">
+                                <img src="images/windows.png" alt="Windows" class="w-5 h-5">
+                                <span class="text-sm text-gray-400">Windows</span>
+                            </div>
+                            <ul class="text-sm text-gray-400 space-y-1 mb-4">
+                                <li>• Pak versions V0-V11 support</li>
+                                <li>• Multiple compression algorithms</li>
+                                <li>• AES-256 encryption support</li>
+                                <li>• Desktop app & CLI</li>
+                                <li>• NuGet package available</li>
+                            </ul>
+                            <div class="flex flex-col gap-2">
+                                <a href="https://github.com/vaibhavpandeyvpz/unpaker/releases/latest" target="_blank" class="bg-orange-500 hover:bg-orange-600 text-white text-center py-2 px-4 rounded btn-primary">
+                                    Download
+                                </a>
+                                <div class="flex gap-2">
+                                    <a href="https://github.com/vaibhavpandeyvpz/unpaker/issues" target="_blank" class="flex-1 bg-gray-700 text-white text-center py-2 px-4 rounded btn-secondary text-sm">
+                                        Get Help
+                                    </a>
+                                    <a href="https://github.com/vaibhavpandeyvpz/unpaker" target="_blank" class="flex-1 bg-gray-700 text-white text-center py-2 px-4 rounded btn-secondary text-sm">
+                                        Source Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="projects/unpaker/screenshot.png" alt="Unpaker Screenshot" class="w-full rounded screenshot-hover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 mt-16">
+        <!-- GitHub Profile Section -->
+        <div class="container mx-auto px-4 py-12">
+            <div id="github-profile" class="max-w-2xl mx-auto">
+                <div class="bg-gray-800 rounded-lg border border-gray-700 p-6">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div id="github-avatar" class="flex-shrink-0">
+                            <div class="w-24 h-24 rounded-full bg-gray-700 animate-pulse"></div>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <div id="github-name" class="mb-2">
+                                <div class="h-6 w-48 bg-gray-700 rounded animate-pulse mx-auto md:mx-0"></div>
+                            </div>
+                            <div id="github-bio" class="text-gray-300 mb-4">
+                                <div class="h-4 w-full bg-gray-700 rounded animate-pulse mb-2"></div>
+                                <div class="h-4 w-3/4 bg-gray-700 rounded animate-pulse mx-auto md:mx-0"></div>
+                            </div>
+                            <div id="github-stats" class="flex flex-wrap justify-center md:justify-start gap-4 mb-4">
+                                <div class="h-4 w-20 bg-gray-700 rounded animate-pulse"></div>
+                                <div class="h-4 w-20 bg-gray-700 rounded animate-pulse"></div>
+                                <div class="h-4 w-20 bg-gray-700 rounded animate-pulse"></div>
+                            </div>
+                            <div id="github-location" class="text-sm text-gray-400 mb-4">
+                                <div class="h-4 w-32 bg-gray-700 rounded animate-pulse mx-auto md:mx-0"></div>
+                            </div>
+                            <div class="flex justify-center md:justify-start gap-4">
+                                <a href="https://github.com/vaibhavpandeyvpz" target="_blank" class="text-orange-400 hover:text-orange-500 transition-colors">View on GitHub →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="container mx-auto px-4 py-8 border-t border-gray-800">
+            <div class="text-center text-gray-400">
+                <p class="mb-4">Made with ❤️ by <a href="https://vaibhavpandey.com" target="_blank" class="text-orange-400 hover:text-orange-500">Vaibhav Pandey (VPZ)</a></p>
+                <div class="flex justify-center gap-4">
+                    <a href="https://github.com/vaibhavpandeyvpz" target="_blank" class="text-orange-400 hover:text-orange-500">GitHub</a>
+                    <a href="https://vaibhavpandey.com" target="_blank" class="text-orange-400 hover:text-orange-500">Website</a>
+                    <a href="https://www.youtube.com/channel/UC5uV1PRvtnNj9P8VfqO93Pw" target="_blank" class="text-orange-400 hover:text-orange-500">YouTube</a>
+                </div>
+                <p class="mt-4 text-sm">All game names and logos are property of their respective owners and are used for illustration purposes only.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.card-hover').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe stats cards
+        document.querySelectorAll('.stats-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Fetch GitHub profile data
+        async function fetchGitHubProfile() {
+            try {
+                const response = await fetch('https://api.github.com/users/vaibhavpandeyvpz');
+                const data = await response.json();
+                
+                // Update avatar
+                const avatarEl = document.getElementById('github-avatar');
+                avatarEl.innerHTML = `<img src="${data.avatar_url}" alt="${data.name || data.login}" class="w-24 h-24 rounded-full border-2 border-orange-500/30">`;
+                
+                // Update name
+                const nameEl = document.getElementById('github-name');
+                nameEl.innerHTML = `<h3 class="text-2xl font-bold text-orange-400">${data.name || data.login}</h3>`;
+                
+                // Update bio
+                const bioEl = document.getElementById('github-bio');
+                if (data.bio) {
+                    bioEl.innerHTML = `<p class="text-gray-300">${data.bio}</p>`;
+                } else {
+                    bioEl.innerHTML = '';
+                }
+                
+                // Update stats
+                const statsEl = document.getElementById('github-stats');
+                statsEl.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="text-orange-400 font-semibold">${data.public_repos}</span>
+                        <span class="text-gray-400 text-sm">Repositories</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-orange-400 font-semibold">${data.followers}</span>
+                        <span class="text-gray-400 text-sm">Followers</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-orange-400 font-semibold">${data.following}</span>
+                        <span class="text-gray-400 text-sm">Following</span>
+                    </div>
+                `;
+                
+                // Update location
+                const locationEl = document.getElementById('github-location');
+                if (data.location) {
+                    locationEl.innerHTML = `<p class="text-sm text-gray-400">📍 ${data.location}</p>`;
+                } else {
+                    locationEl.innerHTML = '';
+                }
+            } catch (error) {
+                console.error('Error fetching GitHub profile:', error);
+                // Hide the profile section on error
+                document.getElementById('github-profile').style.display = 'none';
+            }
+        }
+        
+        // Fetch GitHub profile on page load
+        fetchGitHubProfile();
+    </script>
+</body>
+</html>
+
